@@ -1,54 +1,49 @@
 package org.example.steps;
 
-import cucumber.api.java.ru.Дано;
-import cucumber.api.java.ru.Если;
-import cucumber.api.java.ru.Когда;
-import cucumber.api.java.ru.То;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.example.elements.Category;
-import org.example.pages.StartPage;
-
-import static com.codeborne.selenide.Selenide.open;
+import cucumber.api.java.ru.*;
+import org.example.elements.Filter;
+import org.example.pages.MarketPage;
 
 public class MarketSteps {
-    private Logger log = LogManager.getLogger(MarketSteps.class);
-    StartPage startPage;
+    MarketPage marketPage;
+    Filter filter;
 
-    @Дано("страница Яндекс Маркета")
-    public void страницаЯндексМаркета() {
-        log.trace("Открыта страница Яндекс Маркета");
-        open("https://market.yandex.ru/");
-        startPage = new StartPage();
+    @Дано("открыта страница с выбором товара")
+    public void открытаСтраницаСВыборомТовара() {
+        Filter.setViewtype();
+        marketPage = new MarketPage();
+        filter = new Filter();
     }
 
-    @То("сменить {string}")
-    public void сменить(String city) {
-        startPage.setLocation().changeLocation(city);
+    @Допустим("добавить товар в избранное")
+    public void добавитьТоварВИзбранное() {
+        marketPage.addWishList();
     }
 
-    @То("проверяем страницу Яндекс Маркета")
-    public void сноваПроверяемСтраницуЯндексМаркета() {
-        new StartPage();
+    @Также("активировать значок В продаже")
+    public void активироватьЗначокВПродаже() {
+        Filter.setCheckBox();
     }
 
-    @Когда("выбираем определение местоположения автоматически")
-    public void выбираемОпределениеМестоположенияАвтоматически() {
-        startPage.setLocation().autoLocation();
+    @И("установить цену От")
+    public void установитьЦенуОт() {
+        marketPage.setPrice().setPriceFrom();
     }
 
-    @То("подтверждаем местоположение")
-    public void подтверждаемМестоположение() {
-        startPage.locationIsOk();
+    @И("установить цену До")
+    public void установитьЦенуДо() {
+        marketPage.clearCheckBox().clearCheckBoxFrom();
+        marketPage.setPrice().setPriceTo();
+        marketPage.clearCheckBox().clearCheckBoxTo();
     }
 
-    @Если("нажать на Выбор категории")
-    public void нажатьНаВыборКатегории() {
-        startPage.openCategory();
+    @И("выбрать рандомного производителя")
+    public void выбратьРандомногоПроизводителя() {
+        marketPage.chooseProducer();
     }
 
-    @То("выбрать Продукты")
-    public void выбратьПродукты() {
-        new Category().selectItem();
+    @Затем("выбрать рандомный товар")
+    public void выбратьРандомныйТовар() {
+        marketPage.selectFoodItem();
     }
 }
