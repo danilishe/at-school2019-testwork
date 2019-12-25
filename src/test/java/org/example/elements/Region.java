@@ -1,9 +1,11 @@
 package org.example.elements;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.pages.StartPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -15,13 +17,15 @@ public class Region {
 
     private static SelenideElement wrapper = $x("//div[@class='modal__wrapper']");
     private static SelenideElement locationInput = $x(".//input[@placeholder='Укажите другой регион']");
-    private static SelenideElement listEl = $x("//*[@class='region-suggest__list suggest2__content suggest2__content_theme_normal']");
-    private static SelenideElement location = $x("//*[contains(@class, 'header2-region')]/span[@class='header2-menu__text']");
+    private static SelenideElement listEl = $x("//*[@class='region-suggest__list suggest2__content " +
+            "suggest2__content_theme_normal']");
+    private static SelenideElement location =
+            $x("//*[contains(@class, 'header2-region')" + "]/span[@class='header2" + "-menu__text']");
     private static SelenideElement button = $x("//span[@class='button__text']/..");
 
 
     public Region() {
-        wrapper.isDisplayed();
+        wrapper.shouldBe(Condition.visible);
     }
 
     public void changeLocation(String s) {
@@ -37,8 +41,9 @@ public class Region {
         log.trace("Страница обновляется.");
     }
 
-    public void autoLocation() {
+    public StartPage autoLocation() {
         log.trace("Автоматически определяем локацию.");
         $(By.linkText("Определять автоматически")).click();
+        return new StartPage();
     }
- }
+}

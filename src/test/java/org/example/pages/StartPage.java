@@ -1,17 +1,17 @@
 package org.example.pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
+import com.codeborne.selenide.ex.ElementNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.example.elements.Category;
 import org.example.elements.Region;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class StartPage {
-    private Logger log = LogManager.getLogger(StartPage.class);
+    private static Logger log = LogManager.getLogger(StartPage.class);
 
     private static SelenideElement searchInput = $(By.id("header-search"));
 
@@ -37,21 +37,25 @@ public class StartPage {
     }
     
     public StartPage() {
-        searchInput.isDisplayed();
-        location.isDisplayed();
+        try {
+            searchInput.shouldBe(Condition.visible);
+            location.shouldBe(Condition.visible);
 
-        scrollTo(brandsBlock);
+            scrollTo(brandsBlock);
 
-        bannerBlock.isDisplayed();
-        offerBlock.isDisplayed();
-        recommendBlock.shouldHaveSize(2);
-        magazineBlock.isDisplayed();
-        reviewsBlock.isDisplayed();
-        brandsBlock.isDisplayed();
-        footer.isDisplayed();
-        aside.isDisplayed();
+            bannerBlock.exists();
+            offerBlock.exists();
+            recommendBlock.shouldHave(CollectionCondition.sizeGreaterThanOrEqual(2));
+            magazineBlock.exists();
+            reviewsBlock.exists();
+            brandsBlock.exists();
+            footer.shouldBe(Condition.visible);
+            aside.shouldBe(Condition.visible);
 
-        log.debug("Все блоки видны на странице.");
+            log.debug("Все блоки видны на странице Яндекс.");
+        } catch (ElementNotFound ex) {
+            log.error("Не все блоки присутствуют на странице Яндекс!");
+        }
     }
 
     public Region setLocation() {
@@ -67,13 +71,13 @@ public class StartPage {
 
     public void locationIsOk() {
         log.trace("Подтверждаем выбранный автоматически город.");
-        Selenide.sleep(3000);
         locOKBtn.click();
     }
 
-    public void openCategory() {
+    public Category openCategory() {
         log.trace("Открываем категории Маркета");
         categoryBtn.click();
+        return new Category();
     }
 
 }
