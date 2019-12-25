@@ -21,7 +21,7 @@ public class StartPage {
 
     private static SelenideElement bannerBlock = $x("//img[@alt='Баннер']//..");
     private static SelenideElement offerBlock = $x("//*[starts-with(text(),'Приглядитесь')]/ancestor::div[@class='theme_light']");
-    private static ElementsCollection recommendBlock = $$x("//div[text() = '₽']/ancestor::*[contains(@class, 'titleElemWrapper')]/ancestor::*[contains(@class, 'section')]");
+    private static ElementsCollection recommendBlock = $$x("//h3/following-sibling::*/ancestor::*[contains(@class, 'titleElemWrapper')]/ancestor::*[contains(@class, 'section')]");
     private static SelenideElement magazineBlock = $x("//*[text() = \"Журнал Маркета\"]/ancestor::div[@class='theme_light']");
     private static SelenideElement reviewsBlock = $x("//*[starts-with(text(),'Отзывы')]/ancestor::div[@class='theme_light']");
     private static SelenideElement brandsBlock = $x("//*[text() = \"Популярные бренды\"]/ancestor::div[@class='theme_light']");

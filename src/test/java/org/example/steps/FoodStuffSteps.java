@@ -14,7 +14,6 @@ public class FoodStuffSteps {
     @Дано("открыта страница Продукты")
     public void открытаСтраницаПродукты() {
         Selenide.open("https://market.yandex.ru/catalog--produkty-napitki/54434");
-        Selenide.sleep(15000);
     }
 
     @Допустим("выбирается рандомная подкатегорияП")

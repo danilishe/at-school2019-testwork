@@ -1,12 +1,14 @@
 #language: ru
 
+@no_popcategory
+
 Функциональность: Тестирование страницы Продукты Яндекс Маркета
-  @all @subcategory @market @buy @filter @product
+  @all @market @subcategory
   Сценарий: с переходом на выбор товаров
     Дано открыта страница Продукты
     Допустим выбирается рандомная подкатегорияТ
 
-  @all @filter @market @product @buy
+  @all @market @filter @product @buy
   Сценарий: покупка на Яндекс Маркете
     Дано открыта страница с выбором товара
     Допустим добавить товар в избранное
