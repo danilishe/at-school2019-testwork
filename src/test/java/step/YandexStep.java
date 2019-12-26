@@ -6,6 +6,8 @@ import pages.yandex.market.avto.YandexMarketAvto;
 import pages.yandex.market.product.YandexMarketProduct;
 import pages.yandex.market.main.YandexMarketMain;
 
+import java.io.IOException;
+
 public class YandexStep {
     YandexMarketMain yandexMain = new YandexMarketMain();
     YandexMarketAvto yandexAvto = new YandexMarketAvto();
@@ -13,7 +15,7 @@ public class YandexStep {
     Magazine magazine = new Magazine();
 
     @Дано("страница яндекс маркет")
-    public void страницаЯндексМаркет() {
+    public void страницаЯндексМаркет() throws IOException {
         yandexMain.openUrl();
     }
 
@@ -252,7 +254,7 @@ public class YandexStep {
     }
 
     @Если("выбрать произвольного производителя")
-    public void выбратьПроизвольногоПроизводителя() {
+    public void выбратьПроизвольногоПроизводителя() throws IOException {
         yandexCategories.selectBrand();
     }
 

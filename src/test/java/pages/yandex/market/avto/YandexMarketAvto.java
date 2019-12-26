@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.$x;
 import static pages.yandex.intrface.Methods.*;
@@ -15,39 +14,38 @@ import static pages.yandex.intrface.Methods.*;
 public class YandexMarketAvto  {
     private static Logger log = LogManager.getLogger("Яндекс маркет авто");
     List<SelenideElement> categoriesList;
-    SelenideElement categories;
 
     public void blockPopularCategories() {
-        thisElementIsVisible($x("//div[@class='_1jFQqaVTVd']"));
         log.info("Проверяем что отображается блок популярные категории");
+        thisElementIsVisible($x("//div[@class='_1jFQqaVTVd']"));
     }
 
     public void blockPopularProduct() {
-        thisElementIsVisible($x("(//div[@class='section N9o4gAuSnb ej2vn2CdLz qUW8qep9Rv _2n8U4OismH'])[1]"));
         log.info("Проверяем что отображается блок популярный продукт");
+        thisElementIsVisible($x("(//div[@class='section N9o4gAuSnb ej2vn2CdLz qUW8qep9Rv _2n8U4OismH'])[1]"));
     }
 
     public void blockDiscount() {
-        thisElementIsVisible($x("(//div[@class='section N9o4gAuSnb ej2vn2CdLz qUW8qep9Rv _2n8U4OismH'])[3]"));
         log.info("Проверяем что отображается блок скидок");
+        thisElementIsVisible($x("(//div[@class='section N9o4gAuSnb ej2vn2CdLz qUW8qep9Rv _2n8U4OismH'])[3]"));
     }
 
     public void blockPopularReviews() {
-        thisElementIsVisible($x("//*[contains(text(),'Популярные отзывы')]/../../.."));
         log.info("Проверяем что отображается блок популярные отзывы");
+        thisElementIsVisible($x("//*[contains(text(),'Популярные отзывы')]/../../.."));
     }
 
     public void blockPopularReviewsCategories() {
-        thisElementIsVisible($x("//div[@class='pHw5WzirzZ _3i3Ue8KMNy']"));
         log.info("Проверяем что отображается подкатегории блока популярные отзывы");
+        thisElementIsVisible($x("//div[@class='pHw5WzirzZ _3i3Ue8KMNy']"));
     }
 
     public void randomCategories() {
-        categoriesList = $$(By.xpath("//a[@class='_2qvOOvezty SvBTI5gwNn _9qbcyI_fyS']"));
-//        categories = randomElement(categoriesList);
-        categories = categoriesList.get(1);
-        categories.waitUntil(visible, Time()).click();
-        log.info("выбираем произвольну категорию - {}",categories.getText());
+        //a[@class='_2qvOOvezty SvBTI5gwNn _9qbcyI_fyS']
+        categoriesList = $$(By.xpath("//div[@data-452ecda2=\"true\"]/div"));
+//      randomElement(categoriesList).click();
+        categoriesList.get(1).click();
+//        log.info("Выбираем произвольну категорию - {}",categoriesList.get(1).getText());
     }
 
 }

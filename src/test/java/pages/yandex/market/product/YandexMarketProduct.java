@@ -35,81 +35,81 @@ public class YandexMarketProduct {
     }
 
     public void blockPriceLimit() {
-        thisElementIsVisible($x("//fieldset[@class='_38PayafmjD']"));
         log.info("Проверяем что отображается  лимит цены");
+        thisElementIsVisible($x("//fieldset[@class='_38PayafmjD']"));
     }
 
     public void checkboxOnSale() {
-        thisElementIsVisible($x("//label[@class='_1e7iX1B2oW'][@for='onstock']"));
         log.info("Проверяем что отображается чекбокс \"В продаже\"");
+        thisElementIsVisible($x("//label[@class='_1e7iX1B2oW'][@for='onstock']"));
 
     }
 
     public void blockManufacturer() {
-        thisElementIsVisible($x("//fieldset[@data-autotest-id='7893318']"));
         log.info("Проверяем что отображается производитель");
+        thisElementIsVisible($x("//fieldset[@data-autotest-id='7893318']"));
     }
 
     public void blockStoreRating() {
-        thisElementIsVisible($x("//fieldset[@class='_2uSu7TQsMO']"));
         log.info("Проверяем что отображается  рейтинг магазина");
+        thisElementIsVisible($x("//fieldset[@class='_2uSu7TQsMO']"));
     }
 
     public void blockDeliveryMethod() {
-        thisElementIsVisible($x("//fieldset[@class='_2qWuY12N6f']"));
         log.info("Проверяем что отображается способо доставки ");
+        thisElementIsVisible($x("//fieldset[@class='_2qWuY12N6f']"));
     }
 
     public void blockPaymentMethod() {
-        thisElementIsVisible($x("//fieldset[@data-autotest-id='payments']"));
         log.info("Проверяем что отображается способ оплаты");
+        thisElementIsVisible($x("//fieldset[@data-autotest-id='payments']"));
     }
 
     public void blockShops() {
-        thisElementIsVisible($x("//fieldset[@data-autotest-id='fesh']"));
         log.info("Проверяем что отображается ссылка \"предложений\" ");
+        thisElementIsVisible($x("//fieldset[@data-autotest-id='fesh']"));
     }
 
     public void checkBlocksProductPrice() {
-        checkBlocksProduct(".//div[@class='n-snippet-card2__main-price-wrapper']//div[@class='price']");
         log.info("Проверяем что у каждого продукта отображается цена");
+        checkBlocksProduct(".//div[@class='n-snippet-card2__main-price-wrapper']//div[@class='price']");
     }
 
     public void checkBlocksProductOffer() {
-        checkBlocksProduct(".//div[@class='n-snippet-card2__more-prices-link']");
         log.info("Проверяем что у каждого продукта отображается ссылка \"предложений\"");
+        checkBlocksProduct(".//div[@class='n-snippet-card2__more-prices-link']");
     }
 
     public void checkBlocksProductComment() {
-        checkBlocksProduct(".//a[@class='n-badge-review__link']");
         log.info("Проверяем что у каждого продукта отображается отзыв");
+        checkBlocksProduct(".//a[@class='n-badge-review__link']");
 
     }
 
     public void hoverProduct() {
         product = randomElement($$(By.xpath("//div[@class='n-snippet-list n-snippet-list_type_vertical metrika b-zone b-spy-init b-spy-events i-bem metrika_js_inited snippet-list_js_inited b-spy-init_js_inited b-zone_js_inited']/*")));
+        log.info("Наводим курсор на продукт");
         product.scrollTo().hover();
-        log.info("Наводим курсор нна продукт");
     }
 
     public void blockAddFavorite() {
-        thisElementIsVisible($x("//div[@class='n-snippet-card2__hover']"));
         log.info("Проверяем что у продукта отображается кнопка \"добавить в избранное\"");
+        thisElementIsVisible($x("//div[@class='n-snippet-card2__hover']"));
     }
 
     public void clickButtonFavorite() {
-        $x("//i[@class='image image_name_favorite']").click();
         log.info("Кликаем на кнопку \"добавить в избранное\"");
+        $x("//i[@class='image image_name_favorite']").click();
     }
 
     public void noticeOfAdditionFavorites() {
-        thisElementIsVisible($x(".//div[@class='popup-informer__text']"));
         log.info("Проверяем что в верхней части появилось уведомление");
+        thisElementIsVisible($x(".//div[@class='popup-informer__text']"));
     }
 
     public void noticeOfAdditionFavoritesClose() {
-        $x("//div[@class='popup-informer__close image image_name_close']").click();
         log.info("Закрываем уведомление");
+        $x("//div[@class='popup-informer__close image image_name_close']").click();
     }
 
     public void setMinPrice() throws InterruptedException {
@@ -142,7 +142,7 @@ public class YandexMarketProduct {
         Thread.sleep(5000);
     }
     @Attachment
-    public void selectBrand() {
+    public void selectBrand() throws IOException {
         log.info("Выбираем случайного производителя");
         try {
             manufacturer = randomElement($$(By.xpath("//legend[text()='Производитель']/..//label")));
@@ -152,6 +152,7 @@ public class YandexMarketProduct {
             Thread.sleep(3000);
         } catch (ElementNotFound | InterruptedException e) {
             log.error("производитель не найден");
+            screenshot();
           
         }
     }
