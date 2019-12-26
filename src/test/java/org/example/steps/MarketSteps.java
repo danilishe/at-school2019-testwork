@@ -7,6 +7,7 @@ import org.example.pages.MarketPage;
 public class MarketSteps {
     MarketPage marketPage;
     Filter filter;
+    boolean stepsB;
 
     @Дано("открыта страница с выбором товара")
     public void открытаСтраницаСВыборомТовара() {
@@ -39,7 +40,7 @@ public class MarketSteps {
 
     @И("выбрать рандомного производителя")
     public void выбратьРандомногоПроизводителя() {
-        marketPage.chooseProducer();
+        stepsB = marketPage.chooseProducer();
     }
 
     @Затем("выбрать рандомный товар")

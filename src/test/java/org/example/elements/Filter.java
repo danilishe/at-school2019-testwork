@@ -62,6 +62,7 @@ public class Filter {
         String maxPrice = price.find(By.xpath(".//input[@name=\"Цена до\"]")).getAttribute("placeholder");
         price.find(By.xpath(".//input[@name=\"Цена от\"]")).setValue(maxPrice);
         log.trace("Установили цену От");
+        new MarketPage();
         Selenide.sleep(2000);
     }
 
@@ -69,6 +70,7 @@ public class Filter {
         String minPrice = price.find(By.xpath(".//input[@name=\"Цена от\"]")).getAttribute("placeholder");
         price.find(By.xpath(".//input[@name=\"Цена до\"]")).setValue(minPrice);
         log.trace("Устанавили цену До");
+        new MarketPage();
         Selenide.sleep(2000);
     }
 

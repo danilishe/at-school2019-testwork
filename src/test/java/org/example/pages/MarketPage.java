@@ -57,16 +57,15 @@ public class MarketPage {
         return new Filter();
     }
 
-    public void chooseProducer() {
+    public boolean chooseProducer() {
         SelenideElement element = ProducerItem.getRandom();
 
         try {
             element.scrollTo().click();
         } catch (NullPointerException ex) {
-            log.trace("Ищем случайный товар.");
-            selectFoodItem();
-            Selenide.closeWebDriver();
-            log.fatal("Все тесты пройдены. Завершить сценарий.");
+            log.trace("Переход на следующий шаг.");
+            return false;
+
         }
 
         new MarketPage();
@@ -82,6 +81,7 @@ public class MarketPage {
                 break;
             }
         }
+        return true;
     }
 
     public void selectFoodItem() {
