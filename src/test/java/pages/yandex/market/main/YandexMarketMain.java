@@ -1,32 +1,23 @@
 package pages.yandex.market.main;
 
-import com.codeborne.selenide.Screenshots;
-import com.google.common.io.Files;
-import io.qameta.allure.Attachment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pages.yandex.intrface.Methods;
 
-import java.io.File;
 import java.io.IOException;
 
-import static com.codeborne.selenide.Selenide.*;
-import static pages.yandex.intrface.Methods.*;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.open;
+import static pages.yandex.intrface.Methods.thisElementIsVisible;
 
-public class YandexMarketMain implements  Methods {
+public class YandexMarketMain  {
+
     int time = 7000;
     private static Logger log = LogManager.getLogger("Яндекс маркет");
 
-    @Attachment(type = "image/png")
-    public byte[] screenshot() throws IOException {
-        File screenshot = Screenshots.takeScreenShotAsFile();//getScreenShotAsFile();
-        return Files.toByteArray(screenshot);
-    }
-
     public void openUrl() throws IOException {
+        log.info("Открываем страницу Яндекс маркет");
         open("https://market.yandex.ru/");
-        screenshot();
     }
 
     public void blockSearchString() {
@@ -134,7 +125,5 @@ public class YandexMarketMain implements  Methods {
         log.info("кликаем на категорию \"Аудио- и видеотехника\"");
         $x("//a[@data-712821aa][text()='Аудио- и видеотехника']").waitUntil(visible, time).click();
     }
-    
 }
 
-//waitUntil(enabled, 20000)

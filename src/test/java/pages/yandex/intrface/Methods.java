@@ -18,22 +18,16 @@ import java.util.Random;
 import static com.codeborne.selenide.Condition.visible;
 
 public interface Methods {
-    
-   static Logger log = LogManager.getLogger("Interface");
-
-    static int Time(){
-        return 7000;
-    }
+    Logger log = LogManager.getLogger("Interface");
 
     static void thisElementIsVisible(SelenideElement element) {
         try {
             element.scrollTo();
             Thread.sleep(3000);
             element.shouldBe(visible);
-            log.info("Элемент найден");
+            log.debug("Элемент найден");
         } catch (ElementNotFound | NoSuchElementException | InterruptedException e) {
             log.error("Элемент {} не найден", element);
-           
         }
     }
 
@@ -45,6 +39,7 @@ public interface Methods {
     }
 
     static String removeLastChar(String s) {
+        log.info("Вызван метод редактирования строки");
         return Optional.ofNullable(s)
                 .map(str -> str.replaceAll(" ₽", ""))
                 .orElse(s);

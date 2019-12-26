@@ -41,11 +41,9 @@ public class YandexMarketAvto  {
     }
 
     public void randomCategories() {
-        //a[@class='_2qvOOvezty SvBTI5gwNn _9qbcyI_fyS']
         categoriesList = $$(By.xpath("//div[@data-452ecda2=\"true\"]/div"));
 //      randomElement(categoriesList).click();
         categoriesList.get(1).click();
-//        log.info("Выбираем произвольну категорию - {}",categoriesList.get(1).getText());
+        log.info("Выбираем произвольну категорию");
     }
-
 }

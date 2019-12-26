@@ -38,7 +38,7 @@ public class Magazine {
             SelenideElement name = $x("//*[contains(text(),'" + nameProduct + "')]");
             log.info("Название на странице {}", name.getText());
             thisElementIsVisible(name);
-            SelenideElement price = $x("//*[contains(text(),'" + priceProduct + "del')]");
+            SelenideElement price = $x("//*[contains(text(),'" + priceProduct + "')]");
             log.info("цена на странице {}", price.getText());
             thisElementIsVisible(price);
         } catch (ElementNotFound e) {

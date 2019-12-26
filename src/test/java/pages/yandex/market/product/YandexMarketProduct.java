@@ -28,12 +28,6 @@ public class YandexMarketProduct {
     public static String productName;
     boolean flag;
 
-    @Attachment(type = "image/png")
-    public byte[] screenshot() throws IOException {
-        File screenshot = Screenshots.takeScreenShotAsFile();//getScreenShotAsFile();
-        return Files.toByteArray(screenshot);
-    }
-
     public void blockPriceLimit() {
         log.info("Проверяем что отображается  лимит цены");
         thisElementIsVisible($x("//fieldset[@class='_38PayafmjD']"));
@@ -42,7 +36,6 @@ public class YandexMarketProduct {
     public void checkboxOnSale() {
         log.info("Проверяем что отображается чекбокс \"В продаже\"");
         thisElementIsVisible($x("//label[@class='_1e7iX1B2oW'][@for='onstock']"));
-
     }
 
     public void blockManufacturer() {
@@ -152,8 +145,6 @@ public class YandexMarketProduct {
             Thread.sleep(3000);
         } catch (ElementNotFound | InterruptedException e) {
             log.error("производитель не найден");
-            screenshot();
-          
         }
     }
 
@@ -161,7 +152,7 @@ public class YandexMarketProduct {
         int count = 1;
         productList = $$(By.xpath("//div[@class='n-snippet-list n-snippet-list_type_vertical metrika b-zone b-spy-init b-spy-events i-bem metrika_js_inited snippet-list_js_inited b-spy-init_js_inited b-zone_js_inited']/*"));
         for (SelenideElement brandProduct : productList) {
-            log.info("{} - {}", count, brandProduct.find(By.xpath(".//a[contains(text(),'" + manufacturerNameText + "')]")));
+            log.debug("{} - {}", count, brandProduct.find(By.xpath(".//a[contains(text(),'" + manufacturerNameText + "')]")).getText());
             thisElementIsVisible(brandProduct.find(By.xpath(".//a[contains(text(),'" + manufacturerNameText + "')]")));
             count++;
         }
@@ -179,7 +170,6 @@ public class YandexMarketProduct {
         productName = product.find(By.xpath(".//h3[@class='n-snippet-card2__title']")).getText();
         log.info("Запоминаем название продукта {}", productName);
         Thread.sleep(3000);
-
     }
 
     public void goToStore() throws InterruptedException {
@@ -187,10 +177,8 @@ public class YandexMarketProduct {
         product.find(By.xpath(".//div[@class='n-snippet-card2__more-prices-link']/a")).click();
         Thread.sleep(5000);
         log.info("Переходим в магазин");
-        $x("//span[contains(text(), 'магазин')]").click();
+//        $x("//span[contains(text(), 'магазин')]").click();
         Thread.sleep(10000);
-
-
     }
 
     public void productVisibleOnPage() {
@@ -203,26 +191,26 @@ public class YandexMarketProduct {
                 s2 = removeLastChar(s);
             }
             if (flag) {
-                System.out.println("макс цена----" + $x("//input[@id='glpriceto']").getAttribute("placeholder"));
+                log.debug("Сравниваем два значения: \n цена продукта {} \n цена поля {}",s2,$x("//input[@id='glpriceto']").getAttribute("placeholder"));
                 Assert.assertEquals($x("//input[@id='glpriceto']").getAttribute("placeholder"), s2);
 
             } else {
-                System.out.println("мин - цена" + $x("//input[@id='glpricefrom']").getAttribute("placeholder"));
+                log.debug("Сравниваем два значения: \n цена продукта {} \n цена поля {}",s2,$x("//input[@id='glpricefrom']").getAttribute("placeholder"));
                 Assert.assertEquals($x("//input[@id='glpricefrom']").getAttribute("placeholder"), s2);
-
             }
         } else
-            System.out.println("Продукт с такой ценой не найден");
+            log.error("Продукт с такой ценой не найден");
     }
 
     public void checkBlocksProduct(String blockXpath) {
         try {
             productList = $$(By.xpath("//div[@class='n-snippet-list n-snippet-list_type_vertical metrika b-zone b-spy-init b-spy-events i-bem metrika_js_inited snippet-list_js_inited b-spy-init_js_inited b-zone_js_inited']/*"));
             for (SelenideElement product : productList) {
+                log.debug(product.find(By.xpath(blockXpath)).getText());
                 thisElementIsVisible(product.find(By.xpath(blockXpath)));
             }
         } catch (NoSuchElementException | ElementNotFound e) {
-            System.out.println("Ошибка, нет такого элемента\n" + e);
+           log.error("Ошибка, нет такого элемента\n" + e);
 
         }
     }
